@@ -1,4 +1,5 @@
 const metaRegex = /<meta[^<>]*?=(['"].*?['"]|[^<>]*?)*?\/?>/g;
+const linkRegex = /<link[^<>]*?=(['"].*?['"]|[^<>]*?)*?\/?>/g;
 const titleRegex = /<title[^<>]*?>(.*?)<\/title>/g;
 const attributesRegex = /(\S*?)=("(.*?)"|'(.*?)'|([^<>\s]*))/g;
 
@@ -38,6 +39,12 @@ export function extractMetaAndTitle(domString) {
 
   //extract metas
   domString = domString.replace(metaRegex, (_tagString) => {
+    metas.push({...getAttributes(_tagString), _tagString});
+    return '';
+  });
+
+  //extract links
+  domString = domString.replace(linkRegex, (_tagString) => {
     metas.push({...getAttributes(_tagString), _tagString});
     return '';
   });

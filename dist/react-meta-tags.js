@@ -536,6 +536,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.removeChild = removeChild;
 	exports.getDomAsString = getDomAsString;
 	var metaRegex = /<meta[^<>]*?=(['"].*?['"]|[^<>]*?)*?\/?>/g;
+	var linkRegex = /<link[^<>]*?=(['"].*?['"]|[^<>]*?)*?\/?>/g;
 	var titleRegex = /<title[^<>]*?>(.*?)<\/title>/g;
 	var attributesRegex = /(\S*?)=("(.*?)"|'(.*?)'|([^<>\s]*))/g;
 
@@ -577,6 +578,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  //extract metas
 	  domString = domString.replace(metaRegex, function (_tagString) {
+	    metas.push(_extends({}, getAttributes(_tagString), { _tagString: _tagString }));
+	    return '';
+	  });
+
+	  //extract links
+	  domString = domString.replace(linkRegex, function (_tagString) {
 	    metas.push(_extends({}, getAttributes(_tagString), { _tagString: _tagString }));
 	    return '';
 	  });
