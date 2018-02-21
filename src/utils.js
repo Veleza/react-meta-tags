@@ -102,6 +102,18 @@ export function getDuplicateMeta(meta) {
   return null;
 }
 
+export function getDuplicateLink(meta) {
+  const head = document.head;
+  const {id, href} = meta;
+  if (id) {
+    return id && head.querySelector(`#${id}`);
+  } else if (href) {
+    return filterOutMetaWithId(head.querySelectorAll(`[href = "${href}"]`));
+  }
+
+  return null;
+}
+
 
 //function to append childrens on a parent
 export function appendChild(parent, childrens) {

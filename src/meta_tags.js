@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import {getDuplicateTitle, getDuplicateMeta, appendChild, removeChild, getDomAsString} from './utils';
+import {getDuplicateTitle, getDuplicateMeta, getDuplicateLink, appendChild, removeChild, getDomAsString} from './utils';
 
 
 /** An wrapper component to wrap element which need to shifted to head **/
@@ -55,6 +55,10 @@ class MetaTags extends Component {
           if (title) removeChild(head, title);
         } else if (tag === 'meta') {
           const meta = getDuplicateMeta(child);
+          if (meta) removeChild(head, meta);
+        }
+        } else if (tag === 'link') {
+          const meta = getDuplicateLink(child);
           if (meta) removeChild(head, meta);
         }
       });
