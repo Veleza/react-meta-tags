@@ -1,7 +1,7 @@
 /*!
  * react-meta-tags - 0.3.0
  * Author : Sudhanshu Yadav
- * Copyright (c) 2016,2017 to Sudhanshu Yadav - ignitersworld.com , released under the MIT license.
+ * Copyright (c) 2016,2018 to Sudhanshu Yadav - ignitersworld.com , released under the MIT license.
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -472,6 +472,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          } else if (tag === 'meta') {
 	            var meta = (0, _utils.getDuplicateMeta)(child);
 	            if (meta) (0, _utils.removeChild)(head, meta);
+	          } else if (tag === 'link') {
+	            var _meta = (0, _utils.getDuplicateLink)(child);
+	            if (_meta) (0, _utils.removeChild)(head, _meta);
 	          }
 	        });
 
@@ -528,6 +531,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.removeDuplicateMetas = removeDuplicateMetas;
 	exports.getDuplicateTitle = getDuplicateTitle;
 	exports.getDuplicateMeta = getDuplicateMeta;
+	exports.getDuplicateLink = getDuplicateLink;
 	exports.appendChild = appendChild;
 	exports.removeChild = removeChild;
 	exports.getDomAsString = getDomAsString;
@@ -637,6 +641,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return filterOutMetaWithId(head.querySelectorAll('[name = "' + name + '"]'));
 	  } else if (property) {
 	    return filterOutMetaWithId(head.querySelectorAll('[property = "' + property + '"]'));
+	  }
+
+	  return null;
+	}
+
+	function getDuplicateLink(meta) {
+	  var head = document.head;
+	  var id = meta.id,
+	      href = meta.href;
+
+	  if (id) {
+	    return id && head.querySelector('#' + id);
+	  } else if (href) {
+	    return filterOutMetaWithId(head.querySelectorAll('[href = "' + href + '"]'));
 	  }
 
 	  return null;
