@@ -56,7 +56,6 @@ class MetaTags extends Component {
         } else if (tag === 'meta') {
           const meta = getDuplicateMeta(child);
           if (meta) removeChild(head, meta);
-        }
         } else if (tag === 'link') {
           const meta = getDuplicateLink(child);
           if (meta) removeChild(head, meta);
